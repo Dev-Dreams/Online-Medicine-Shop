@@ -5,6 +5,14 @@ def index(request):
     context={}
     return render(request, 'index/index.html', context)
 
+def login(request):
+    context={}
+    return render(request, 'index/login.html', context)
+
+def register(request):
+    context={}
+    return render(request, 'index/registration.html', context)
+
 def shop(request, page=1):
     context={
         "page": page,
@@ -61,3 +69,22 @@ def shopItem(request, name=''):
     }
     return render(request, 'index/shops/shop-items.html', context)
 
+def about(request):
+    context={}
+    return render(request, 'index/about.html', context)
+
+def contact(request):
+    context={}
+    return render(request, 'index/contact.html', context)
+
+def cart(request):
+    context={}
+    return render(request, 'index/cart.html', context)
+
+def checkout(request):
+    context={}
+    return render(request, 'index/checkout.html', context)
+
+def thankyou(request):
+    context={}
+    return render(request, 'index/thankyou.html', context)
