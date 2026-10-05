@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %}
 
 {% load static %}
 
@@ -19,8 +19,8 @@
         <div class="row mb-5">
           <form class="col-md-12" method="post">
             <div class="site-blocks-table">
-              <table class="table table-bordered">
-                <thead>
+              <table class="table table-bordered"> -->
+                <!-- <thead>
                   <tr>
                     <th class="product-thumbnail">Image</th>
                     <th class="product-name">Product</th>
@@ -29,8 +29,8 @@
                     <th class="product-total">Total</th>
                     <th class="product-remove">Remove</th>
                   </tr>
-                </thead>
-                <tbody>
+                </thead> -->
+                <!-- <tbody>
                   <tr>
                     <td class="product-thumbnail">
                       <img src="{% static 'images/product_02.png'%}" alt="Image" class="img-fluid">
@@ -81,7 +81,9 @@
                     <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
                   </tr>
                 </tbody>
-              </table>
+              </table> -->
+
+<!--               
             </div>
           </form>
         </div>
@@ -159,6 +161,117 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-{% endblock %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <title>All Cart</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="text-center"><u>My Cart</u></h2>
+            <br><br>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <thead>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{item.Product}}
+                        <a href="/remove/{{item.id}}" class="btn btn-danger">Remove</a></td>
+                        <td>{{item.quantity}}</td>
+                        <td>&#8377;{{item.Product.p_price}}</td>
+                        <td>{{ item.quantity | mul:item.Product.p_price}}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" class="text-right">Grand Total</td>
+                        <td>&#8377;{{total_price}}</td>
+                    </tr>
+                </thead>
+            </table>
+            <form id="payment-form">
+                {% csrf_token %}
+                <textarea name="address" id="address" cols="30", rows="3" class="form-control" placeholder="Enter Delivery Address"></textarea>
+                <input type="hidden" id="price" name="price" value="{{total_price}}">
+                <br>
+                <button type="button" id="pay-button" class="btn btn-primary">Pay Now</button>
+            </form>
+            <br><br>
+            <button type="button" class="btn btn-primary"><a href="{% url 'shop' page=1 %}" style="color:white">Back to Shopping</a></button>
+        </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $("#pay-button").click(function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                // Get the amount entered by the user
+                const price = $("#price").val();
+                const address=$("#address").val();
+                // Make an AJAX request to initiate the payment
+                $.ajax({
+                    type: "POST",
+                    url: "/initiate-payment/",
+                    data: { amount: price, address:address },
+                    dataType: "json",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", $("[name=csrfmiddlewaretoken]").val());
+                    },
+                    success: function(data) {
+                        // Initialize Razorpay Checkout with the received values
+                        const options = {
+                            key: data.key,
+                            amount: data.amount,
+                            currency: data.currency,
+                            order_id: data.id,
+                            name: data.name,
+                            description: data.description,
+                            image: data.image,
+                            handler: function(response) {
+                                // Handle the payment success or failure and redirect accordingly
+                                if (response.razorpay_payment_id) {
+                                    // Payment successful, redirect to the success URL
+                                    window.location.href = "/payment-success/";
+                                } else {
+                                    // Payment failed or canceled, redirect to the failure URL
+                                    window.location.href = "/payment-failed/";
+                                }
+                            },
+                            prefill: {
+                                name: "Card Holder Name",
+                            },
+                        };
+    
+                        const rzp = new Razorpay(options);
+                        rzp.open();
+                    },
+                    error: function(error) {
+                        console.error("Error initiating payment:", error);
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
+    </html>
+
+    <br><br>
+<!-- {% endblock %} -->

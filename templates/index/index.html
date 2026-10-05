@@ -12,7 +12,7 @@
           <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
           <h1>Welcome To Pharma</h1>
           <p>
-            <a href="shop.html" class="btn btn-primary px-5 py-3">Shop Now</a>
+            <a href="{% url 'shop' page=1 %}" class="btn btn-primary px-5 py-3">Shop Now</a>
           </p>
         </div>
       </div>
@@ -25,7 +25,7 @@
     <div class="row align-items-stretch section-overlap">
       <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
         <div class="banner-wrap bg-primary h-100">
-          <a href="shop.html" class="h-100">
+          <a href="#" class="h-100">
             <h5>Free <br> Shipping</h5>
             <p>
               Get your products delivered for free.
@@ -36,7 +36,7 @@
       </div>
       <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
         <div class="banner-wrap h-100">
-          <a href="shop.html" class="h-100">
+          <a href="#" class="h-100">
             <h5>Season <br> Sale 50% Off</h5>
             <p>
               Shop now and save big!
@@ -47,7 +47,7 @@
       </div>
       <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
         <div class="banner-wrap bg-warning h-100">
-          <a href="shop.html" class="h-100">
+          <a href="#" class="h-100">
             <h5>Buy <br> A Gift Card</h5>
             <p>
               Give the Gift of Health
@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-sm-6 col-lg-4 text-center item mb-4">
         <span class="tag">Sale</span>
         <a href="shop-single.html">
@@ -107,56 +107,38 @@
         <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
         <p class="price"><del>$89</del> &mdash; $38.00</p>
       </div>
+    </div> -->
+    <div>
+      {% if allSProd %}
+      <table border="1" cellpadding="60">
+        <tr>
+          {% for prd in allSProd %}
+            <td>
+              
+                <img src="{{ prd.s_image.url }}" height="200" width="150">
+                <h6><b>{{ prd.s_name }}</b></h6>
+                <h6>&#x20b9;{{ prd.s_price }}</h6>
+              
+            </td>
+            
+            {% if forloop.counter|divisibleby:4 and not forloop.last %}
+            </tr><tr>
+            {% endif %}
+          {% endfor %}
+        </tr>
+      </table>
+      {% else %}
+      No Product Found
+      {% endif %}
     </div>
     <div class="row mt-5">
       <div class="col-12 text-center">
-        <a href="shop.html" class="btn btn-primary px-4 py-3">View All Products</a>
+        <a href="{% url 'shop' page=1 %}" class="btn btn-primary px-4 py-3">View All Products</a>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="site-section bg-light">
-  <div class="container">
-    <div class="row">
-      <div class="title-section text-center col-12">
-        <h2 class="text-uppercase">New Products</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 block-3 products-wrap">
-        <div class="nonloop-block-3 owl-carousel">
-
-          <div class="text-center item mb-4">
-            <a href="shop-single.html"> <img src="{% static 'images/product_03.png'%}" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-
-          <div class="text-center item mb-4">
-            <a href="shop-single.html"> <img src="{% static 'images/product_01.png'%}" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-
-          <div class="text-center item mb-4">
-            <a href="shop-single.html"> <img src="{% static 'images/product_02.png'%}" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-
-          <div class="text-center item mb-4">
-            <a href="shop-single.html"> <img src="{% static 'images/product_04.png'%}" alt="Image"></a>
-            <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="site-section">
   <div class="container">

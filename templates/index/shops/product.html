@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="{% url 'index' %}">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Store</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+      
+        <h1 style="color:black"><!--Supplements--></h1>
+
+        <div class="row">
+          <div class="col-sm-6 col-lg-4 text-center item mb-4">
+            <!-- <div>
+              {% if allProd %}
+              <table border="1" cellpadding="60">
+                {% for prd in allProd %}
+                <tr>
+                  
+                  <td colspan="2">
+                    <h6><b>{{ prd.p_name }}</b></h6>
+                  </td>
+                </tr>
+                <tr>
+                  
+                  <td>
+                    <img src="{{ prd.p_image.url }}" height="200" width="150">
+                    <br><br>
+                    <h6>&#x20b9;{{ prd.p_price }}</h6>
+                  </td>
+                  
+                  <td>
+                    <p>
+                      <u>Description:</u> {{ prd.p_description }}
+                    </p>
+                  </td>
+                </tr>
+                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                <tr><td colspan="2"><hr></td></tr> 
+                {% endif %}
+                {% endfor %}
+              </table>
+              {% else %}
+              No Product Found
+              {% endif %}
+            </div> -->
+            <!-- <div style="width: 80%; margin: auto;">
+              {% if allProd %}
+              <table border="1" cellpadding="10" style="width: 100%; border-collapse: collapse; text-align: center;">
+                {% for prd in allProd %}
+                <tr>
+                  
+                  <td colspan="2" style="font-size: 18px; padding: 15px; background-color: #f8f8f8;">
+                    <h6><b>{{ prd.p_name }}</b></h6>
+                  </td>
+                </tr>
+                <tr>
+                  
+                  <td style="width: 50%; vertical-align: top;">
+                    <img src="{{ prd.p_image.url }}" height="200" width="150" style="display: block; margin: auto;">
+                    <br><br>
+                    <h6 style="font-size: 16px;">&#x20b9;{{ prd.p_price }}</h6>
+                  </td>
+                  
+                  <td style="width: 50%; vertical-align: top; padding: 10px;">
+                    <p style="font-size: 14px; text-align: left;">
+                      <u>Description:</u> {{ prd.p_description }}
+                    </p>
+                  </td>
+                </tr>
+                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                <tr><td colspan="2"><hr></td></tr>
+                {% endif %}
+                {% endfor %}
+              </table>
+              {% else %}
+              No Product Found
+              {% endif %}
+            </div> -->
+            
+            <div style="width: 100%; margin: auto;">
+              {% if allProd %}
+              <table border="1" cellpadding="10" style="width: 300%; border-collapse: collapse; text-align: center; margin: auto;">
+                {% for prd in allProd %}
+                <tr>
+                  <td colspan="6" style="font-size: 18px; padding: 15px; background-color: #f8f8f8;">
+                    <h6><b>{{ prd.p_name }}</b></h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width: 50%; vertical-align: top;">
+                    <img src="{{ prd.p_image.url }}" height="200" width="150" style="display: block; margin: auto;">
+                    <br><br>
+                    <h6 style="font-size: 16px;">&#x20b9;{{ prd.p_price }}</h6>
+                  </td>
+                  <td style="width: 50%; vertical-align: top; padding: 10px;">
+                    <p style="font-size: 14px; text-align: left;">
+                      <u>Description:</u> {{ prd.p_description }}
+                    </p>
+                    <a class="buy-now-button" href="{% url 'add_to_cart' prd.p_id %}">Add to Cart</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </table>
+              {% else %}
+              No Product Found
+              {% endif %}
+            </div>
+            
+            
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="site-section bg-secondary bg-image" style="background-image: url({% static 'images/bg_2.jpg'%});">
+      <div class="container">
+        <div class="row align-items-stretch">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url({% static 'images/bg_1.jpg'%});">
+              <div class="banner-1-inner align-self-center">
+                <h2>Pharma Products</h2>
+                <p>1. Generic Medicines<br>
+                  2. Branded Medicines<br>
+                  3. Ayurvedic/Herbal Products<br>
+                  4. Homeopathic Medicines<br>
+                  5. Over-the-Counter (OTC) Products<br>
+                  6. Medical Equipment<br>
+                  7. Personal Care Items
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url({% static 'images/bg_2.jpg'%});">
+              <div class="banner-1-inner ml-auto  align-self-center">
+                <h2>Rated by Experts</h2>
+                <p>Dr. Smith, a leading family physician, recommends our range of pain relievers for their effectiveness and safety.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -23,8 +23,8 @@
           </div>
           <div class="col-md-12">
     
-            <form action="https://formsubmit.co/0def9ce1da270c1fe282d97d7d2be362" method="post" />
-    
+            <form method="POST">
+              {% csrf_token %}
               <div class="p-3 p-lg-5 border">
                 <div class="form-group row">
                   <div class="col-md-6">
